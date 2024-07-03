@@ -1,0 +1,28 @@
+##
+# Project-specific CI environment extensions
+##
+
+services:
+  # cicee execution service.
+  ci-exec:
+    build:
+      context: "${PROJECT_ROOT}/ci"
+      dockerfile: Dockerfile
+    command: "${CI_COMMAND}"
+    entrypoint: "${CI_ENTRYPOINT}"
+    working_dir: /code
+    volumes:
+      # Project Code
+      - type: bind
+        source: "${PROJECT_ROOT}"
+        target: /code
+      # Docker
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    environment:
+      # Environment variables with only a key are resolved to their values on the machine running (Docker) Compose.
+      NUGET_API_KEY:
+      NUGET_SOURCE:
+    # NOTE: Root user specified below helps address permissions errors when using the default CICEE Dockerfile.
+    user: root

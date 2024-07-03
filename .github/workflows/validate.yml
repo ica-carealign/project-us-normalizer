@@ -1,0 +1,21 @@
+name: Validate Project
+
+on: [pull_request]
+
+jobs:
+  validate-project:
+    # ubuntu-latest provides many dependencies.
+    # See: https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest commit
+        uses: actions/checkout@v2
+      - name: Restore local .NET tools (including cicee)
+        run: dotnet tool restore
+      - name: Execute verification script - Validate source and perform dry-run composition
+        run: dotnet cicee exec -c ci/bin/validate.sh
+        env:
+          NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: ${{secrets.NUGET_SOURCE}}
+          RELEASE_ENVIRONMENT: false
