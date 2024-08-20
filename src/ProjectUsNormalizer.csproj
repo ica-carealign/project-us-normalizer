@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SsiGroup.ProjectUsNormalizer</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Company>The SSI Group, LLC</Company>
+    <Copyright>Copyright (c) 2024 The SSI Group, LLC</Copyright>
+    <Description>C# library to facilitate address normalization in accordance with Project US@, the "Unified Specification for Addresses in Health Care"</Description>
+    <PackageId>ProjectUsNormalizer</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ica-carealign/project-us-normalizer</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Address;Normalizer;ProjectUS@;ProjectUS;</PackageTags>
+    <Product>project-us-normalizer</Product>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ica-carealign/project-us-normalizer</RepositoryUrl>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

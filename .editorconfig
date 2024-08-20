@@ -1,0 +1,240 @@
+##
+# Editor Config.
+# @see http://editorconfig.org
+##
+root = true
+
+##
+# Special property that should be specified at the top of the file outside of any sections. Set to true to stop
+# .editorconfig files search on current file.
+##
+
+##
+# Configuration for all files.
+##
+[*]
+charset = utf-8
+
+# Line length
+max_line_length = 120
+
+# Tab indentation
+indent_size = 2
+indent_style = space
+
+# Line endings
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+##
+# Data files.
+##
+[*.{csv,json}]
+insert_final_newline = false
+
+##
+# Markdown
+##
+[*.{md,markdown}]
+max_line_length = off
+
+##
+# Tests
+##
+[**{T,t}ests**]
+max_line_length = 180
+
+##
+# Visual Studio Code Analysis Rule Sets
+##
+[*.ruleset]
+insert_final_newline = false
+
+##
+# Microsoft .NET properties
+# @see https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-formatting-conventions
+# @see https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-language-conventions
+# @see https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-naming-conventions
+##
+[*.cs]
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_between_query_expression_clauses = true
+csharp_prefer_simple_using_statement = false:suggestion
+csharp_prefer_static_local_function = true:suggestion
+csharp_preferred_modifier_order = public, private, protected, internal, new, abstract, virtual, sealed, override, static, readonly, extern, unsafe, volatile, async:suggestion
+csharp_space_after_cast = false
+csharp_style_pattern_local_over_anonymous_function = true:suggestion
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_prefer_switch_expression = true:suggestion
+csharp_style_var_elsewhere = false:suggestion
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = false:suggestion
+csharp_using_directive_placement = outside_namespace:suggestion
+dotnet_separate_import_directive_groups = true
+dotnet_sort_system_directives_first = true
+dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+dotnet_style_prefer_auto_properties = true:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_readonly_field = true:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+
+##
+# ReSharper properties
+# See https://www.jetbrains.com/help/resharper/EditorConfig_Index.html
+##
+[*.cs]
+resharper_align_multiline_binary_expressions_chain = false
+resharper_blank_lines_after_control_transfer_statements = 1
+resharper_blank_lines_around_single_line_local_method = 1
+resharper_blank_lines_before_block_statements = 1
+resharper_blank_lines_before_control_transfer_statements = 1
+resharper_blank_lines_between_using_groups = 1
+resharper_braces_for_for = required
+resharper_braces_for_foreach = required
+resharper_braces_for_ifelse = required
+resharper_braces_for_while = required
+resharper_braces_redundant = false
+resharper_csharp_align_multiline_parameter = true
+resharper_csharp_indent_size = 2
+resharper_csharp_keep_blank_lines_in_code = 1
+resharper_csharp_keep_blank_lines_in_declarations = 1
+resharper_csharp_place_type_constraints_on_same_line = false
+resharper_csharp_stick_comment = false
+resharper_csharp_tab_width = 2
+resharper_csharp_use_indent_from_vs = false
+resharper_csharp_wrap_after_declaration_lpar = true
+resharper_csharp_wrap_after_invocation_lpar = true
+resharper_csharp_wrap_arguments_style = chop_if_long
+resharper_csharp_wrap_before_binary_opsign = true
+resharper_csharp_wrap_before_declaration_rpar = true
+resharper_csharp_wrap_before_first_type_parameter_constraint = true
+resharper_csharp_wrap_before_invocation_rpar = true
+resharper_csharp_wrap_parameters_style = chop_if_long
+resharper_enforce_line_ending_style = true
+resharper_keep_existing_embedded_arrangement = false
+resharper_keep_existing_expr_member_arrangement = false
+resharper_keep_existing_switch_expression_arrangement = false
+resharper_max_formal_parameters_on_line = 3
+resharper_place_attribute_on_same_line = False
+resharper_place_simple_embedded_statement_on_same_line = False
+resharper_space_after_cast = false
+resharper_space_around_arrow_op = true
+resharper_space_before_fixed_parentheses = false
+resharper_space_within_single_line_array_initializer_braces = true
+resharper_use_indent_from_vs = false
+resharper_wrap_array_initializer_style = chop_if_long
+resharper_wrap_chained_binary_expressions = chop_if_long
+resharper_wrap_lines = true
+
+# ReSharper inspection severities
+[*.cs]
+resharper_arrange_type_member_modifiers_highlighting = suggestion
+resharper_enforce_do_while_statement_braces_highlighting = suggestion
+resharper_enforce_foreach_statement_braces_highlighting = suggestion
+resharper_enforce_for_statement_braces_highlighting = suggestion
+resharper_enforce_if_statement_braces_highlighting = suggestion
+resharper_enforce_while_statement_braces_highlighting = suggestion
+resharper_redundant_base_qualifier_highlighting = warning
+resharper_remove_redundant_braces_highlighting = suggestion
+
+# Shared analysis rules which apply to all projects (exported and private to repository).
+dotnet_diagnostic.ca1001.severity = warning # Types that own disposable fields should be disposable
+dotnet_diagnostic.ca1009.severity = warning # Declare event handlers correctly
+dotnet_diagnostic.ca1016.severity = warning # Mark assemblies with AssemblyVersionAttribute
+dotnet_diagnostic.ca1033.severity = warning # Interface methods should be callable by child types
+dotnet_diagnostic.ca1049.severity = warning # Types that own native resources should be disposable
+dotnet_diagnostic.ca1058.severity = warning # Types should not extend certain base types
+dotnet_diagnostic.ca1060.severity = warning # Move P/Invokes to NativeMethods class
+dotnet_diagnostic.ca1061.severity = warning # Do not hide base class methods
+dotnet_diagnostic.ca1062.severity = none # Validate arguments of public methods
+dotnet_diagnostic.ca1063.severity = warning # Implement IDisposable correctly
+dotnet_diagnostic.ca1065.severity = warning # Do not raise exceptions in unexpected locations
+dotnet_diagnostic.ca1301.severity = warning # Avoid duplicate accelerators
+dotnet_diagnostic.ca1303.severity = none # Do not pass literals as localized parameters
+dotnet_diagnostic.ca1308.severity = none # Normalize strings to uppercase
+dotnet_diagnostic.ca1400.severity = warning # P/Invoke entry points should exist
+dotnet_diagnostic.ca1401.severity = warning # P/Invokes should not be visible
+dotnet_diagnostic.ca1403.severity = warning # Auto layout types should not be COM visible
+dotnet_diagnostic.ca1404.severity = warning # Call GetLastError immediately after P/Invoke
+dotnet_diagnostic.ca1405.severity = warning # COM visible type base types should be COM visible
+dotnet_diagnostic.ca1410.severity = warning # COM registration methods should be matched
+dotnet_diagnostic.ca1415.severity = warning # Declare P/Invokes correctly
+dotnet_diagnostic.ca1801.severity = suggestion # Review unused parameters
+dotnet_diagnostic.ca1821.severity = warning # Remove empty finalizers
+dotnet_diagnostic.ca1900.severity = warning # Value type fields should be portable
+dotnet_diagnostic.ca1901.severity = warning # P/Invoke declarations should be portable
+dotnet_diagnostic.ca2002.severity = warning # Do not lock on objects with weak identity
+dotnet_diagnostic.ca2007.severity = none # Do not directly await a Task
+dotnet_diagnostic.ca2100.severity = warning # Review SQL queries for security vulnerabilities
+dotnet_diagnostic.ca2101.severity = warning # Specify marshaling for P/Invoke string arguments
+dotnet_diagnostic.ca2108.severity = warning # Review declarative security on value types
+dotnet_diagnostic.ca2111.severity = warning # Pointers should not be visible
+dotnet_diagnostic.ca2112.severity = warning # Secured types should not expose fields
+dotnet_diagnostic.ca2114.severity = warning # Method security should be a superset of type
+dotnet_diagnostic.ca2116.severity = warning # APTCA methods should only call APTCA methods
+dotnet_diagnostic.ca2117.severity = warning # APTCA types should only extend APTCA base types
+dotnet_diagnostic.ca2122.severity = warning # Do not indirectly expose methods with link demands
+dotnet_diagnostic.ca2123.severity = warning # Override link demands should be identical to base
+dotnet_diagnostic.ca2124.severity = warning # Wrap vulnerable finally clauses in outer try
+dotnet_diagnostic.ca2126.severity = warning # Type link demands require inheritance demands
+dotnet_diagnostic.ca2131.severity = warning # Security critical types may not participate in type equivalence
+dotnet_diagnostic.ca2132.severity = warning # Default constructors must be at least as critical as base type default constructors
+dotnet_diagnostic.ca2133.severity = warning # Delegates must bind to methods with consistent transparency
+dotnet_diagnostic.ca2134.severity = warning # Methods must keep consistent transparency when overriding base methods
+dotnet_diagnostic.ca2137.severity = warning # Transparent methods must contain only verifiable IL
+dotnet_diagnostic.ca2138.severity = warning # Transparent methods must not call methods with the SuppressUnmanagedCodeSecurity attribute
+dotnet_diagnostic.ca2140.severity = warning # Transparent code must not reference security critical items
+dotnet_diagnostic.ca2141.severity = warning # Transparent methods must not satisfy LinkDemands
+dotnet_diagnostic.ca2146.severity = warning # Types must be at least as critical as their base types and interfaces
+dotnet_diagnostic.ca2147.severity = warning # Transparent methods may not use security asserts
+dotnet_diagnostic.ca2149.severity = warning # Transparent methods must not call into native code
+dotnet_diagnostic.ca2153.severity = none # Avoid handling Corrupted State Exceptions
+dotnet_diagnostic.ca2200.severity = warning # Rethrow to preserve stack details
+dotnet_diagnostic.ca2202.severity = warning # Do not dispose objects multiple times
+dotnet_diagnostic.ca2207.severity = warning # Initialize value type static fields inline
+dotnet_diagnostic.ca2212.severity = warning # Do not mark serviced components with WebMethod
+dotnet_diagnostic.ca2213.severity = warning # Disposable fields should be disposed
+dotnet_diagnostic.ca2214.severity = warning # Do not call overridable methods in constructors
+dotnet_diagnostic.ca2216.severity = warning # Disposable types should declare finalizer
+dotnet_diagnostic.ca2220.severity = warning # Finalizers should call base class finalizer
+dotnet_diagnostic.ca2229.severity = warning # Implement serialization constructors
+dotnet_diagnostic.ca2231.severity = warning # Overload operator equals on overriding ValueType.Equals
+dotnet_diagnostic.ca2232.severity = warning # Mark Windows Forms entry points with STAThread
+dotnet_diagnostic.ca2235.severity = warning # Mark all non-serializable fields
+dotnet_diagnostic.ca2236.severity = warning # Call base class methods on ISerializable types
+dotnet_diagnostic.ca2237.severity = warning # Mark ISerializable types with SerializableAttribute
+dotnet_diagnostic.ca2238.severity = warning # Implement serialization methods correctly
+dotnet_diagnostic.ca2240.severity = warning # Implement ISerializable correctly
+dotnet_diagnostic.ca2241.severity = warning # Provide correct arguments to formatting methods
+dotnet_diagnostic.ca2242.severity = warning # Test for NaN correctly
+dotnet_diagnostic.ca3075.severity = none # Insecure DTD Processing
+dotnet_diagnostic.ca3076.severity = none # Insecure XSLT Script Execution
+dotnet_diagnostic.ca3077.severity = none # Insecure Processing in API Design, XML Document and XML Text Reader
+dotnet_diagnostic.ca3147.severity = none # Mark verb handlers with ValidateAntiForgeryToken
+dotnet_diagnostic.cs8604.severity = suggestion # Possible null reference argument for parameter 'XXXX' in 'YYYY'.
+dotnet_diagnostic.cs8618.severity = error # Non-nullable property is uninitialized
+dotnet_diagnostic.sa1000.severity = none # ClosingParenthesisMustBeSpacedCorrectly
+
+dotnet_diagnostic.sa1009.severity = none # ClosingParenthesisMustBeSpacedCorrectly
+dotnet_diagnostic.sa1101.severity = none # PrefixLocalCallsWithThis
+dotnet_diagnostic.sa1111.severity = none # ClosingParenthesisMustBeOnLineOfLastParameter
+dotnet_diagnostic.sa1124.severity = suggestion # DoNotUseRegions
+dotnet_diagnostic.sa1128.severity = none # ConstructorInitializerMustBeOnOwnLine
+dotnet_diagnostic.sa1200.severity = none # UsingDirectivesMustBePlacedWithinNamespace
+dotnet_diagnostic.sa1309.severity = none # FieldNamesMustNotBeginWithUnderscore
+dotnet_diagnostic.sa1413.severity = suggestion # UseTrailingCommasInMultiLineInitializers
+dotnet_diagnostic.sa1633.severity = none # FileMustHaveHeader
+dotnet_diagnostic.sx1101.severity = warning # DoNotPrefixLocalMembersWithThis
