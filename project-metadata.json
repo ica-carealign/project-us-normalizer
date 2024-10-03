@@ -1,0 +1,24 @@
+{
+  "name": "project-us-normalizer",
+  "description": "",
+  "title": "ProjectUsNormalizer",
+  "version": "0.1.0",
+  "ciEnvironment": {
+    "variables": [
+      {
+        "name": "NUGET_API_KEY",
+        "description": "NuGet API Key",
+        "required": true,
+        "secret": true,
+        "defaultValue": null
+      },
+      {
+        "name": "NUGET_SOURCE",
+        "description": "NuGet Source URL",
+        "required": true,
+        "secret": false,
+        "defaultValue": null
+      }
+    ]
+  }
+}
