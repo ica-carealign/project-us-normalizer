@@ -66,6 +66,34 @@ internal static class SecondaryUnitDesignators
   ///   <a href="https://oncprojectracking.healthit.gov/wiki/pages/viewpage.action?pageId=180486153" />.
   ///   Table 1: Secondary Address Unit Designators. Page 19.
   /// </remarks>
+  public static IReadOnlyList<string> NotRequireSecondaryAddress = new List<string>
+  {
+    "BASEMENT",
+    "BSMT",
+    "FRONT",
+    "FRNT",
+    "LBBY",
+    "LOBBY",
+    "LOWER",
+    "LOWR",
+    "OFC",
+    "OFFICE",
+    "PENTHOUSE",
+    "PH",
+    "REAR",
+    "SIDE",
+    "UPPER",
+    "UPPR"
+  };
+
+  /// <summary>
+  ///   Secondary unit designators that require secondary address.
+  /// </summary>
+  /// <remarks>
+  ///   Taken from Project US@ technical specification:
+  ///   <a href="https://oncprojectracking.healthit.gov/wiki/pages/viewpage.action?pageId=180486153" />.
+  ///   Table 1: Secondary Address Unit Designators. Page 19.
+  /// </remarks>
   public static IReadOnlyList<string> RequireSecondaryAddress = new List<string>
   {
     "#",

@@ -50,6 +50,27 @@ public static class StreetLineParser
     return components;
   }
 
+  /// <summary>
+  ///   Tries to analyze previous and next pieces to check whether it should be marked as
+  ///   <see cref="StreetComponentType.PrimaryAddressNumber" />.
+  /// </summary>
+  /// <remarks>
+  ///   It is applicable only on the `Numeric` street fragment.
+  ///   Some examples (should return true for those):
+  ///   * `488` in `488 west 49th. Street`.
+  ///   * `520` in `Unit 3250 520 2nd Street North East Lobby`.
+  ///   * `611MN4` in `611MN4 40th. Ave North Apt 243`.
+  /// </remarks>
+  /// <param name="previousPiece">A previous street line fragment.</param>
+  /// <param name="nextComponent">A next parsed component.</param>
+  /// <returns>A value indicating whether it should be marked as primary address number.</returns>
+  private static bool IsNumericPrimaryAddressNumber(StreetLineFragment? previousPiece, StreetComponent? nextComponent)
+  {
+    return previousPiece == null
+      || nextComponent?.ComponentType == StreetComponentType.Predirectional
+      || (nextComponent?.ComponentType == StreetComponentType.StreetName && nextComponent.Text.Any(char.IsDigit));
+  }
+
   private static StreetComponent ParseDirectionComponent(
     StreetLineFragment currentFragment,
     StreetComponent? nextComponent
@@ -87,7 +108,7 @@ public static class StreetLineParser
       return new StreetComponent(currentFragment.Text, StreetComponentType.SecondaryAddress);
     }
 
-    if (currentFragment.IsSecondaryUnitDesignator() && currentFragment.IsRequiredSecondaryAddressExist(nextComponent))
+    if (currentFragment.IsSecondaryUnitDesignator() && currentFragment.MeetsSecondaryAddressRequirements(nextComponent))
     {
       return new StreetComponent(
         currentFragment.GetSecondaryUnitAbbreviation(),
@@ -97,9 +118,9 @@ public static class StreetLineParser
 
     if (currentFragment.FragmentType == StreetLineFragmentType.Numeric)
     {
-      return previousPiece != null
-        ? new StreetComponent(currentFragment.Text, StreetComponentType.StreetName)
-        : new StreetComponent(currentFragment.Text, StreetComponentType.PrimaryAddressNumber);
+      return IsNumericPrimaryAddressNumber(previousPiece, nextComponent)
+        ? new StreetComponent(currentFragment.Text, StreetComponentType.PrimaryAddressNumber)
+        : new StreetComponent(currentFragment.Text, StreetComponentType.StreetName);
     }
 
     if (currentFragment.IsDirection())

@@ -26,13 +26,19 @@ internal static class StreetComponentExtensions
   ///   * `AVE` - Suffix
   ///   * `S` - Post-direction
   ///   * `E` - Post-direction
+  ///   * `BLDG` - Secondary address identifier.
+  ///   * `420` - Secondary address.
+  ///   * `RM` - Secondary address identifier.
+  ///   * `120` - Secondary address.
   ///   This extension will group <see cref="StreetComponent" />s by each type, combining them appropriately with or without
-  ///   space, resulting in `123 NE MILES JOHNSON PARKWAY AVE SE`, where
+  ///   space, resulting in `123 NE MILES JOHNSON PARKWAY AVE SE BLDG 420 RM 120`, where
   ///   * `123` - Primary Address Number.
   ///   * `NE` - Pre-direction
   ///   * `MILES JOHNSON` - Primary Street Name
   ///   * `PARKWAY AVE` - Suffix
   ///   * `SE` - Post-direction
+  ///   * `BLDG 420` - Secondary address identifier and number
+  ///   * `RM 120` - Secondary address identifier and number
   /// </remarks>
   /// <param name="components">A collection of <see cref="StreetComponent" />.</param>
   /// <returns>A combined collection of <see cref="StreetComponent" />.</returns>
@@ -40,20 +46,28 @@ internal static class StreetComponentExtensions
   {
     components.Reverse();
 
-    return components.GroupBy(comp => comp.ComponentType)
-      .Select(
-        group => group.Key switch
+    // Secondary address components should not be grouped.  
+    List<StreetComponent> secondaryAddressComponents = components.Where(static component =>
+      component.ComponentType is StreetComponentType.SecondaryAddress or StreetComponentType.SecondaryAddressIdentifier
+    ).ToList();
+
+    return components
+      .Except(secondaryAddressComponents)
+      .GroupBy(comp => comp.ComponentType)
+      .Select(group => group.Key switch
         {
           StreetComponentType.Predirectional or StreetComponentType.Postdirectional => new StreetComponent(
-            string.Join("", group.Select(component => component.Text)),
+            string.Join("", group.Select(static component => component.Text)),
             group.Key
           ),
           _ => new StreetComponent(
-            string.Join(" ", group.Select(component => component.Text)),
+            string.Join(" ", group.Select(static component => component.Text)),
             group.Key
           )
         }
-      ).ToList();
+      )
+      .Concat(secondaryAddressComponents)
+      .ToList();
   }
 
   /// <summary>
