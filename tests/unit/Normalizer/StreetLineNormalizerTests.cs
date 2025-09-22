@@ -273,6 +273,21 @@ public class StreetLineNormalizerTests
   [InlineData("Ruta 91 Bzn A7", "RR 91 BOX A7")]
   [InlineData("Ruta 91 buzon A7", "RR 91 BOX A7")]
   [InlineData("Ruta 0091 buzon A7", "RR 91 BOX A7")]
+
+  // Secondary unit designators
+  [InlineData("450 Jane Stanford Way, Building 420, Room 120", "450 JANE STANFORD WAY BLDG 420 RM 120")]
+  [InlineData("1011 South West Main Thing St North East Building 120 Room 223", "1011 SW MAIN THING ST NE BLDG 120 RM 223")]
+  [InlineData("114 South Keiser Street Suite A Lobby ", "114 S KEISER ST STE A LBBY")]
+  [InlineData("114  Buckner Lane Apt 16A Upper ", "114 BUCKNER LN APT 16A UPPR")]
+  [InlineData("#3200 South Tech Dr", "S TECH DR # 3200")]
+  [InlineData("#3200 152 South Tech Dr", "152 S TECH DR # 3200")]
+  [InlineData("152 South Tech Dr Apartment 3200", "152 S TECH DR APT 3200")]
+  [InlineData("Apartment 3200 152 South Tech Dr", "152 S TECH DR APT 3200")]
+  [InlineData("Apartment 3200 152 33rd Street", "152 33RD ST APT 3200")]
+  [InlineData("Unit 3200 152 Tech Dr", "152 TECH DR UNIT 3200")]
+  [InlineData("Unit 3200 152 Tech Dr Upper", "152 TECH DR UNIT 3200 UPPR")]
+  [InlineData("Unit 3200 152 Tech Dr Room 12", "152 TECH DR UNIT 3200 RM 12")]
+  [InlineData("Unit 3200 152 North East Tech Dr Upper", "152 NE TECH DR UNIT 3200 UPPR")]
   public void ShouldParseStreetComponents(string? street, string? expected)
   {
     string? actual = AddressNormalizer.NormalizeStreetLine(street);
