@@ -52,8 +52,19 @@ internal static class RegexConstants
   /// </remarks>
   internal static readonly Regex RuralRoutes = new(_ruralRoutePattern, RegexOptions.Compiled);
 
-  private const string _ruralRoutePattern = "(RFD|RR|RD|RURAL ROUTE|RUTA).*?(0*)([0-9]+) (BOX|#|BUZON|BZN) ([0-9A-Z]+)(.*)";
+  private const string _ruralRoutePattern =
+    "(RFD|RR|RD|RURAL ROUTE|RUTA).*?(0*)([0-9]+) (BOX|#|BUZON|BZN) ([0-9A-Z]+)(.*)";
 
+  /// <summary>
+  ///   A Regex expression for 2-letter state abbreviation followed by number.
+  /// </summary>
+  /// <remarks>
+  ///   * `\b` - word boundary to ensure the abbreviation stands alone (not matching something like `NEAR`, etc).
+  ///   * 2-letter state abbreviation.
+  ///   * A single whitespace.
+  ///   * ([0-9]+) - A highway number.
+  ///   * ([A-Z]*) - Optional suffix letters (i.e. NY 17A).
+  /// </remarks>
   private const string _stateFollowedByNumberPattern =
-    "(AK|AL|AR|AZ|CA|CO|CT|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY) ([0-9]+)(.*)";
+    "\\b(AK|AL|AR|AZ|CA|CO|CT|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)\\b ([0-9]+[A-Z]*)(.*)";
 }

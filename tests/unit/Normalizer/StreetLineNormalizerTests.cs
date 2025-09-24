@@ -251,6 +251,7 @@ public class StreetLineNormalizerTests
   [InlineData("9065 HWY FM 1200", "9065 FM 1200")]
   [InlineData("9066 HIGHWAY FARM TO MARKET 1200", "9066 FM 1200")]
   [InlineData("9067 HWY FARM TO MARKET 1200", "9067 FM 1200")]
+  [InlineData("9068-54 New York 17A", "9068-54 NY HIGHWAY 17A")] // should be able to match HIGHWAY number with suffix (ie. 17A).
 
   // Post office addresses
   [InlineData("Post office Box G", "PO BOX G")]
@@ -288,6 +289,11 @@ public class StreetLineNormalizerTests
   [InlineData("Unit 3200 152 Tech Dr Upper", "152 TECH DR UNIT 3200 UPPR")]
   [InlineData("Unit 3200 152 Tech Dr Room 12", "152 TECH DR UNIT 3200 RM 12")]
   [InlineData("Unit 3200 152 North East Tech Dr Upper", "152 NE TECH DR UNIT 3200 UPPR")]
+
+  // Non-address parts
+  [InlineData("Lives In Car Near 120 Elm Street", "LIVES IN CAR NEAR 120 ELM ST")] // Should not treat `NEAR` as `AR HIGHWAY`
+  [InlineData("Lives in car near Sequoia Avenue & Stockbridge Avenue", "LIVES IN CAR NEAR SEQUOIA AVENUE STOCKBRIDGE AVE")]
+  [InlineData("16500-B-1-A Highway 105", "16500-B-1-A HIGHWAY 105")]
   public void ShouldParseStreetComponents(string? street, string? expected)
   {
     string? actual = AddressNormalizer.NormalizeStreetLine(street);
