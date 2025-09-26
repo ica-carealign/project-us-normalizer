@@ -249,6 +249,19 @@ public class StreetLineParserTests
         new StreetComponent("ST", StreetComponentType.Suffix)
       ]
     },
+    {
+      "892 North I 75", [
+        new StreetComponent("892", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("INTERSTATE 75", StreetComponentType.StreetName)
+      ]
+    },
+    {
+      "North I 75", [
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("INTERSTATE 75", StreetComponentType.StreetName)
+      ]
+    },
     // Special characters should be removed.
     {
       "999    North    west* Togo ROAD (east)", [
@@ -257,6 +270,191 @@ public class StreetLineParserTests
         new StreetComponent("TOGO", StreetComponentType.StreetName),
         new StreetComponent("RD", StreetComponentType.Suffix),
         new StreetComponent("E", StreetComponentType.Postdirectional)
+      ]
+    },
+    {
+      "Lives in the tent near 155 North Main St", [
+        new StreetComponent("LIVES IN THE TENT NEAR", StreetComponentType.PreStreetParts),
+        new StreetComponent("155", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("MAIN", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Lives In Car Near 120 Elm Street", [
+        new StreetComponent("LIVES IN CAR NEAR", StreetComponentType.PreStreetParts),
+        new StreetComponent("120", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("ELM", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Lives in the tent near North Main St", [
+        new StreetComponent("LIVES IN THE TENT NEAR", StreetComponentType.PreStreetParts),
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("MAIN", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Lives in car on Main St", [
+        new StreetComponent("LIVES IN CAR ON MAIN", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "UCENT Building Suite 480 411 N Central Ave", [
+        new StreetComponent("UCENT BUILDING", StreetComponentType.PreStreetParts),
+        new StreetComponent("411", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("CENTRAL", StreetComponentType.StreetName),
+        new StreetComponent("AVE", StreetComponentType.Suffix),
+        new StreetComponent("STE", StreetComponentType.SecondaryAddressIdentifier),
+        new StreetComponent("480", StreetComponentType.SecondaryAddress)
+      ]
+    },
+    {
+      "UCENT Building 411 N Central Ave", [
+        new StreetComponent("UCENT BUILDING", StreetComponentType.PreStreetParts),
+        new StreetComponent("411", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("CENTRAL", StreetComponentType.StreetName),
+        new StreetComponent("AVE", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "UCENT Building 847 49th Street", [
+        new StreetComponent("UCENT BUILDING", StreetComponentType.PreStreetParts),
+        new StreetComponent("847", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("49TH", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "UCENT Building 847 North 49th Street", [
+        new StreetComponent("UCENT BUILDING", StreetComponentType.PreStreetParts),
+        new StreetComponent("847", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("N", StreetComponentType.Predirectional),
+        new StreetComponent("49TH", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "North Building Floor 6 101 1st Street, Room 621A", [
+        new StreetComponent("NORTH BUILDING", StreetComponentType.PreStreetParts),
+        new StreetComponent("101", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("1ST", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix),
+        new StreetComponent("FL", StreetComponentType.SecondaryAddressIdentifier),
+        new StreetComponent("6", StreetComponentType.SecondaryAddress),
+        new StreetComponent("RM", StreetComponentType.SecondaryAddressIdentifier),
+        new StreetComponent("621A", StreetComponentType.SecondaryAddress)
+      ]
+    },
+    {
+      "Apartment 223B 932 1/2 Main Street", [
+        new StreetComponent("932", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("1/2 MAIN", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix),
+        new StreetComponent("APT", StreetComponentType.SecondaryAddressIdentifier),
+        new StreetComponent("223B", StreetComponentType.SecondaryAddress)
+      ]
+    },
+    {
+      "9011 TN 30A FRONTAGE RD", [
+        new StreetComponent("9011", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("TN HIGHWAY 30A FRONTAGE", StreetComponentType.StreetName),
+        new StreetComponent("RD", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "9012 TN HWY 30A FRONTAGE RD", [
+        new StreetComponent("9012", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("TN HIGHWAY 30A FRONTAGE", StreetComponentType.StreetName),
+        new StreetComponent("RD", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "9013 TN HIGHWAY 30A FRONTAGE RD", [
+        new StreetComponent("9013", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("TN HIGHWAY 30A FRONTAGE", StreetComponentType.StreetName),
+        new StreetComponent("RD", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Building 11 987 North East Campus Avenue", [
+        new StreetComponent("987", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("NE", StreetComponentType.Predirectional),
+        new StreetComponent("CAMPUS", StreetComponentType.StreetName),
+        new StreetComponent("AVE", StreetComponentType.Suffix),
+        new StreetComponent("BLDG", StreetComponentType.SecondaryAddressIdentifier),
+        new StreetComponent("11", StreetComponentType.SecondaryAddress)
+      ]
+    },
+    {
+      "Williamson Medical Center 3000 Edward Curd Lane", [
+        new StreetComponent("WILLIAMSON MEDICAL CENTER", StreetComponentType.PreStreetParts),
+        new StreetComponent("3000", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("EDWARD CURD", StreetComponentType.StreetName),
+        new StreetComponent("LN", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Williamson Medical Center South Edward Curd Lane", [
+        new StreetComponent("WILLIAMSON MEDICAL CENTER", StreetComponentType.PreStreetParts),
+        new StreetComponent("S", StreetComponentType.Predirectional),
+        new StreetComponent("EDWARD CURD", StreetComponentType.StreetName),
+        new StreetComponent("LN", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Williamson Medical Center South Edward Curd Lane", [
+        new StreetComponent("WILLIAMSON MEDICAL CENTER", StreetComponentType.PreStreetParts),
+        new StreetComponent("S", StreetComponentType.Predirectional),
+        new StreetComponent("EDWARD CURD", StreetComponentType.StreetName),
+        new StreetComponent("LN", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Center of Hope 110 East 7th Street", [
+        new StreetComponent("CENTER OF HOPE", StreetComponentType.PreStreetParts),
+        new StreetComponent("110", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("E", StreetComponentType.Predirectional),
+        new StreetComponent("7TH", StreetComponentType.StreetName),
+        new StreetComponent("ST", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Ski South 100 Ski South Lane", [
+        new StreetComponent("SKI SOUTH", StreetComponentType.PreStreetParts),
+        new StreetComponent("100", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("SKI SOUTH", StreetComponentType.StreetName),
+        new StreetComponent("LN", StreetComponentType.Suffix)
+      ]
+    },
+    {
+      "Rural Route NO. 91 Box A7", [
+        new StreetComponent("RR 91 BOX A7", StreetComponentType.StreetName)
+      ]
+    },
+    // <c>BOX</c> is not defined as a secondary address, so it is parsed as part of the street, that is why PARKWAY is fully spelled out.
+    {
+      "9410 North East Campus Parkway, Box 353600", [
+        new StreetComponent("9410", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("NE", StreetComponentType.Predirectional),
+        new StreetComponent("CAMPUS PARKWAY BOX 353600", StreetComponentType.StreetName)
+      ]
+    },
+    // <c>#</> is defined as a secondary address designator, so it parses those items expectedly.
+    {
+      "9411 North East Campus Parkway, #353600", [
+        new StreetComponent("9411", StreetComponentType.PrimaryAddressNumber),
+        new StreetComponent("NE", StreetComponentType.Predirectional),
+        new StreetComponent("CAMPUS", StreetComponentType.StreetName),
+        new StreetComponent("PKWY", StreetComponentType.Suffix),
+        new StreetComponent("#", StreetComponentType.SecondaryAddressIdentifier),
+        new StreetComponent("353600", StreetComponentType.SecondaryAddress)
       ]
     }
   };

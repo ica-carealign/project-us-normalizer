@@ -3,6 +3,27 @@ namespace SsiGroup.ProjectUsNormalizer.Constants;
 internal static class SpecialCases
 {
   /// <summary>
+  ///   A collection of special case (already mapped and fixed) highways.
+  /// </summary>
+  /// <remarks>
+  ///   Taken from Project US@ technical specification:
+  ///   <a href="https://asapnet.org/wp-content/uploads/2022/03/Project_US_FINAL_Technical_Specification_Version_1.0.pdf" />.
+  ///   Appendix C, page 57.
+  /// </remarks>
+  internal static IReadOnlyList<string> Highways =
+  [
+    "EXPRESSWAY",
+    "FM",
+    "HWY",
+    "HIGHWAY",
+    "INTERSTATE",
+    "RD",
+    "ROAD",
+    "ROUTE",
+    "RR"
+  ];
+
+  /// <summary>
   ///   Special cases mappings, including rural routes, state routes, country roads, etc.
   /// </summary>
   /// <remarks>

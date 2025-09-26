@@ -36,19 +36,26 @@ internal static class RegexConstants
   /// <remarks>
   ///   The pattern must be RR _ BOX _.
   ///   RULES:
-  ///   * SHOULD NOT use the words RURAL, NUMBER, NO., or the pound sign (#).
-  ///   * MUST NOT add a leading zero before the rural route number.
-  ///   * SHOULD include hyphens as part of the box number only when they are part of the address.
-  ///   * SHOULD change the designations RFD and RD (as a meaning for rural or rural free delivery) to RR.
-  ///   * SHOULD NOT allow additional designations, such as town or street names, on the patient Street Address Line of rural
-  ///   route addresses.
+  ///   <list type="bullet">
+  ///     <item> SHOULD NOT use the words RURAL, NUMBER, NO., or the pound sign (#).</item>
+  ///     <item> MUST NOT add a leading zero before the rural route number.</item>
+  ///     <item> SHOULD include hyphens as part of the box number only when they are part of the address.</item>
+  ///     <item> SHOULD change the designations RFD and RD (as a meaning for rural or rural free delivery) to RR.</item>
+  ///     <item>
+  ///       SHOULD NOT allow additional designations, such as town or street names, on the patient Street Address Line of
+  ///       rural
+  ///       route addresses.
+  ///     </item>
+  ///   </list>
   ///   The pattern matches several groups:
-  ///   1. (RFD|RR|RD|RURAL ROUTE|RUTA).*? - Anything that start with RFD or RR or RD or RURAL ROUTE.
-  ///   2. (0*) - Optional leading 0 of the number.
-  ///   3. ([0-9]+) - Rural number.
-  ///   4. (BOX|#|BUZON|BZN) - BOX, the pound sign (#), BUZON, or BZN surrounded by the spaces before and after.
-  ///   5. ([0-9A-Z]+) - Box number that allows letters.
-  ///   6. (.*) - Everything else after box number (should be ignored).
+  ///   <list type="number">
+  ///     <item><c>(RFD|RR|RD|RURAL ROUTE|RUTA).*?</c> - Anything that start with RFD or RR or RD or RURAL ROUTE.</item>
+  ///     <item><c>(0*)</c> - Optional leading 0 of the number.</item>
+  ///     <item><c>([0-9]+)</c> - Rural number.</item>
+  ///     <item><c>(BOX|#|BUZON|BZN)</c> - BOX, the pound sign (#), BUZON, or BZN surrounded by the spaces before and after.</item>
+  ///     <item><c>([0-9A-Z]+)</c> - Box number that allows letters.</item>
+  ///     <item><c>(.*)</c> - Everything else after box number (should be ignored).</item>
+  ///   </list>
   /// </remarks>
   internal static readonly Regex RuralRoutes = new(_ruralRoutePattern, RegexOptions.Compiled);
 
@@ -59,11 +66,14 @@ internal static class RegexConstants
   ///   A Regex expression for 2-letter state abbreviation followed by number.
   /// </summary>
   /// <remarks>
-  ///   * `\b` - word boundary to ensure the abbreviation stands alone (not matching something like `NEAR`, etc).
-  ///   * 2-letter state abbreviation.
-  ///   * A single whitespace.
-  ///   * ([0-9]+) - A highway number.
-  ///   * ([A-Z]*) - Optional suffix letters (i.e. NY 17A).
+  ///   <list type="bullet">
+  ///     <item><c>\b</c> - word boundary to ensure the abbreviation stands alone (not matching something like `NEAR`, etc.).</item>
+  ///     <item>2-letter state abbreviation.</item>
+  ///     <item><c>\b</c> - word boundary to ensure the abbreviation stands alone.</item>
+  ///     <item>A single whitespace.</item>
+  ///     <item><c>[0-9]+</c> - A highway number (i.e. TN 431).</item>
+  ///     <item><c>[A-Z]*</c> - Optional suffix letters (i.e. NY 17A).</item>
+  ///   </list>
   /// </remarks>
   private const string _stateFollowedByNumberPattern =
     "\\b(AK|AL|AR|AZ|CA|CO|CT|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)\\b ([0-9]+[A-Z]*)(.*)";
