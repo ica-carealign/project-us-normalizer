@@ -11,6 +11,12 @@ namespace SsiGroup.ProjectUsNormalizer.Models;
 public enum StreetComponentType
 {
   /// <summary>
+  ///   Pre-street parts (i.e. a place to hold information that appears prior to street components. \
+  ///   For example: `LIVES IN CAR NEAR 120 ELM ST` will hold `LIVES IN CAR NEAR` in PreStreetParts component).
+  /// </summary>
+  PreStreetParts,
+
+  /// <summary>
   ///   Primary Address Number type.
   /// </summary>
   PrimaryAddressNumber,

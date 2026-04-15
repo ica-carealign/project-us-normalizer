@@ -116,8 +116,8 @@ internal static class StreetLineFragmentExtensions
   ///   Checks whether street line piece meets a secondary address requirements.
   /// </summary>
   /// <remarks>
-  ///   Some secondary address unit designators require additional data (number or letter), such as UNIT or APT, while others
-  ///   SHOULD stand along, such as LBBY (lobby) or FRNT (front).
+  ///   Some secondary address unit designators require additional data (number or letter), such as
+  ///   <c>UNIT</c> or <c>APT</c>, while others SHOULD stand along, such as <c>LBBY</c> (lobby) or <c>FRNT</c> (front).
   /// </remarks>
   /// <param name="streetLinePiece">A street line fragment.</param>
   /// <param name="nextComponent">A next component.</param>
