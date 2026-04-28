@@ -7,6 +7,19 @@ namespace SsiGroup.ProjectUsNormalizer.Extensions;
 internal static class StreetLineFragmentExtensions
 {
   /// <summary>
+  ///   Checks whether street line piece does not require secondary address.
+  /// </summary>
+  /// <param name="streetLinePiece">A street line fragment.</param>
+  /// <returns>A value indicating whether current piece does not require secondary address data.</returns>
+  internal static bool DoesNotRequireSecondaryAddress(
+    this StreetLineFragment? streetLinePiece
+  )
+  {
+    return !string.IsNullOrEmpty(streetLinePiece?.Text)
+      && SecondaryUnitDesignators.NotRequireSecondaryAddress.Contains(streetLinePiece.Text);
+  }
+
+  /// <summary>
   ///   Attempts to retrieve a direction abbreviation from <see cref="Directions.Abbreviations" />.
   /// </summary>
   /// <param name="streetLineFragment">A street line fragment.</param>
@@ -97,6 +110,25 @@ internal static class StreetLineFragmentExtensions
   {
     return !string.IsNullOrEmpty(streetLinePiece?.Text)
       && Suffixes.Abbreviations.ContainsKey(streetLinePiece!.Text);
+  }
+
+  /// <summary>
+  ///   Checks whether street line piece meets a secondary address requirements.
+  /// </summary>
+  /// <remarks>
+  ///   Some secondary address unit designators require additional data (number or letter), such as
+  ///   <c>UNIT</c> or <c>APT</c>, while others SHOULD stand along, such as <c>LBBY</c> (lobby) or <c>FRNT</c> (front).
+  /// </remarks>
+  /// <param name="streetLinePiece">A street line fragment.</param>
+  /// <param name="nextComponent">A next component.</param>
+  /// <returns>A value indicating whether street line piece meets secondary address requirements.</returns>
+  internal static bool MeetsSecondaryAddressRequirements(
+    this StreetLineFragment? streetLinePiece,
+    StreetComponent? nextComponent
+  )
+  {
+    return streetLinePiece.DoesNotRequireSecondaryAddress()
+      || streetLinePiece.IsRequiredSecondaryAddressExist(nextComponent);
   }
 
   /// <summary>

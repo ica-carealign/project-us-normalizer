@@ -251,6 +251,7 @@ public class StreetLineNormalizerTests
   [InlineData("9065 HWY FM 1200", "9065 FM 1200")]
   [InlineData("9066 HIGHWAY FARM TO MARKET 1200", "9066 FM 1200")]
   [InlineData("9067 HWY FARM TO MARKET 1200", "9067 FM 1200")]
+  [InlineData("9068-54 New York 17A", "9068-54 NY HIGHWAY 17A")] // should be able to match HIGHWAY number with suffix (ie. 17A).
 
   // Post office addresses
   [InlineData("Post office Box G", "PO BOX G")]
@@ -273,6 +274,41 @@ public class StreetLineNormalizerTests
   [InlineData("Ruta 91 Bzn A7", "RR 91 BOX A7")]
   [InlineData("Ruta 91 buzon A7", "RR 91 BOX A7")]
   [InlineData("Ruta 0091 buzon A7", "RR 91 BOX A7")]
+
+  // Secondary unit designators
+  [InlineData("450 Jane Stanford Way, Building 420, Room 120", "450 JANE STANFORD WAY BLDG 420 RM 120")]
+  [InlineData("1011 South West Main Thing St North East Building 120 Room 223", "1011 SW MAIN THING ST NE BLDG 120 RM 223")]
+  [InlineData("114 South Keiser Street Suite A Lobby ", "114 S KEISER ST STE A LBBY")]
+  [InlineData("114  Buckner Lane Apt 16A Upper ", "114 BUCKNER LN APT 16A UPPR")]
+  [InlineData("#3200 Tech Dr", "TECH DR # 3200")]
+  [InlineData("#3200 South Tech Dr", "S TECH DR # 3200")]
+  [InlineData("#3200 152 South Tech Dr", "152 S TECH DR # 3200")]
+  [InlineData("152 South Tech Dr Apartment 3200", "152 S TECH DR APT 3200")]
+  [InlineData("Apartment 3200 152 South Tech Dr", "152 S TECH DR APT 3200")]
+  [InlineData("Apartment 3200 152 33rd Street", "152 33RD ST APT 3200")]
+  [InlineData("Unit 3200 152 Tech Dr", "152 TECH DR UNIT 3200")]
+  [InlineData("Unit 3200 152 Tech Dr Upper", "152 TECH DR UNIT 3200 UPPR")]
+  [InlineData("Unit 3200 152 Tech Dr Room 12", "152 TECH DR UNIT 3200 RM 12")]
+  [InlineData("Unit 3200 152 North East Tech Dr Upper", "152 NE TECH DR UNIT 3200 UPPR")]
+
+  // Non-address parts in the beginning of street address (i.e. business name or description).
+  [InlineData("16500-B-1-A Highway 105", "16500-B-1-A HIGHWAY 105")]
+  [InlineData("Lives In Car Near 120 Elm Street", "LIVES IN CAR NEAR 120 ELM ST")] // Should not treat `NEAR` as `AR HIGHWAY`
+  [InlineData("Lives in car near Sequoia Avenue & Stockbridge Avenue", "LIVES IN CAR NEAR SEQUOIA AVENUE STOCKBRIDGE AVE")]
+  [InlineData("Lives in car on Main St", "LIVES IN CAR ON MAIN ST")]
+  [InlineData("Lives in the tent near 155 North Main St", "LIVES IN THE TENT NEAR 155 N MAIN ST")]
+  [InlineData("Lives in the tent near 155 Main St", "LIVES IN THE TENT NEAR 155 MAIN ST")]
+  [InlineData("Lives in the tent near North Main St", "LIVES IN THE TENT NEAR N MAIN ST")]
+  [InlineData("Lives in the tent near Main St", "LIVES IN THE TENT NEAR MAIN ST")]
+  [InlineData("Williamson Medical Center 3000 Edward Curd Lane", "WILLIAMSON MEDICAL CENTER 3000 EDWARD CURD LN")]
+  [InlineData("Center of Hope 110 East 7th Street", "CENTER OF HOPE 110 E 7TH ST")]
+  [InlineData("Ski South 100 Ski South Lane", "SKI SOUTH 100 SKI SOUTH LN")]
+  [InlineData("Building 11 987 North East Campus Avenue", "987 NE CAMPUS AVE BLDG 11")]
+  [InlineData("North Building Floor 6 101 1st Street, Room 621A", "NORTH BUILDING 101 1ST ST FL 6 RM 621A")]
+  [InlineData("UCENT Building 847 North 49th Street", "UCENT BUILDING 847 N 49TH ST")]
+  [InlineData("UCENT Building Suite 480 411 N Central Ave", "UCENT BUILDING 411 N CENTRAL AVE STE 480")]
+  [InlineData("UCENT Building 412 N Central Avenue", "UCENT BUILDING 412 N CENTRAL AVE")]
+  [InlineData("UCENT Building 413 Central Ave", "UCENT BUILDING 413 CENTRAL AVE")]
   public void ShouldParseStreetComponents(string? street, string? expected)
   {
     string? actual = AddressNormalizer.NormalizeStreetLine(street);

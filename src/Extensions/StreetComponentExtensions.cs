@@ -16,23 +16,33 @@ internal static class StreetComponentExtensions
   /// <remarks>
   ///   When multiple component types are directional it combines them without adding space;
   ///   all other components are combined with a space.
-  ///   For example, in `123 N E MILES JOHNSON PARKWAY AVE S E`, where
-  ///   * `123` - Primary Address Number.
-  ///   * `N` - Pre-direction
-  ///   * `E` - Pre-direction
-  ///   * `MILES` - Primary Street Name
-  ///   * `JOHNSON` - Primary Street Name
-  ///   * `PARKWAY` - Suffix
-  ///   * `AVE` - Suffix
-  ///   * `S` - Post-direction
-  ///   * `E` - Post-direction
+  ///   For example, in <c>123 N E MILES JOHNSON PARKWAY AVE S E</c>, where
+  ///   <list type="bullet">
+  ///     <item><c>123</c> - Primary Address Number.</item>
+  ///     <item><c>N</c> - Pre-direction.</item>
+  ///     <item><c>E</c> - Pre-direction.</item>
+  ///     <item><c>MILES</c> - Primary Street Name.</item>
+  ///     <item><c>JOHNSON</c> - Primary Street Name.</item>
+  ///     <item><c>PARKWAY</c> - Suffix.</item>
+  ///     <item><c>AVE</c> - Suffix.</item>
+  ///     <item><c>S</c> - Post-direction.</item>
+  ///     <item><c>E</c> - Post-direction.</item>
+  ///     <item><c>BLDG</c> - Secondary address identifier.</item>
+  ///     <item><c>420</c> - Secondary address.</item>
+  ///     <item><c>RM</c> - Secondary address identifier.</item>
+  ///     <item><c>120</c> - Secondary address.</item>
+  ///   </list>
   ///   This extension will group <see cref="StreetComponent" />s by each type, combining them appropriately with or without
-  ///   space, resulting in `123 NE MILES JOHNSON PARKWAY AVE SE`, where
-  ///   * `123` - Primary Address Number.
-  ///   * `NE` - Pre-direction
-  ///   * `MILES JOHNSON` - Primary Street Name
-  ///   * `PARKWAY AVE` - Suffix
-  ///   * `SE` - Post-direction
+  ///   space, resulting in <c>123 NE MILES JOHNSON PARKWAY AVE SE BLDG 420 RM 120</c>, where
+  ///   <list type="bullet">
+  ///     <item><c>123</c> - Primary Address Number.</item>
+  ///     <item><c>NE</c> - Pre-direction.</item>
+  ///     <item><c>MILES JOHNSON</c> - Primary Street Name.</item>
+  ///     <item><c>PARKWAY AVE</c> - Suffix.</item>
+  ///     <item><c>SE</c> - Post-direction.</item>
+  ///     <item><c>BLDG 420</c> - Secondary address identifier and number.</item>
+  ///     <item><c>RM 120</c> - Secondary address identifier and number.</item>
+  ///   </list>
   /// </remarks>
   /// <param name="components">A collection of <see cref="StreetComponent" />.</param>
   /// <returns>A combined collection of <see cref="StreetComponent" />.</returns>
@@ -40,20 +50,42 @@ internal static class StreetComponentExtensions
   {
     components.Reverse();
 
-    return components.GroupBy(comp => comp.ComponentType)
-      .Select(
-        group => group.Key switch
+    // Secondary address components should not be grouped.  
+    List<StreetComponent> secondaryAddressComponents = components.Where(static component =>
+      component.ComponentType is StreetComponentType.SecondaryAddress or StreetComponentType.SecondaryAddressIdentifier
+    ).ToList();
+
+    return components
+      .Except(secondaryAddressComponents)
+      .GroupBy(comp => comp.ComponentType)
+      .Select(group => group.Key switch
         {
           StreetComponentType.Predirectional or StreetComponentType.Postdirectional => new StreetComponent(
-            string.Join("", group.Select(component => component.Text)),
+            string.Join("", group.Select(static component => component.Text)),
             group.Key
           ),
           _ => new StreetComponent(
-            string.Join(" ", group.Select(component => component.Text)),
+            string.Join(" ", group.Select(static component => component.Text)),
             group.Key
           )
         }
-      ).ToList();
+      )
+      .Concat(secondaryAddressComponents)
+      .ToList();
+  }
+
+  /// <summary>
+  ///   Checks whether <see cref="StreetComponent" /> is <see cref="StreetComponentType.PreStreetParts" />, meaning that
+  ///   it comes before
+  ///   <see cref="StreetComponentType.PrimaryAddressNumber" /> or <see cref="StreetComponentType.Predirectional" />.
+  /// </summary>
+  /// <param name="streetComponent">A parsed street component.</param>
+  /// <returns>A value indicating whether next street component type is PreStreetPart.</returns>
+  internal static bool IsPreStreetPart(this StreetComponent? streetComponent)
+  {
+    return streetComponent?.ComponentType is StreetComponentType.PreStreetParts
+      or StreetComponentType.PrimaryAddressNumber
+      or StreetComponentType.Predirectional;
   }
 
   /// <summary>
@@ -71,12 +103,20 @@ internal static class StreetComponentExtensions
   /// </summary>
   /// <remarks>
   ///   Normalization of state names in street line rules:
-  ///   1. When the name of a state is used as a portion of the Primary Street Name, such as `123 TN COUNTY ROAD 4`, it
-  ///   SHOULD use the standard two-letter abbreviation (previous steps took care of that).
-  ///   2. When the name of a state is the complete Primary Street Name, such as OKLAHOMA AVE, then the state name SHOULD be
-  ///   spelled out completely.
-  ///   3. When the name of a state is followed by a number, such as `123 TN 440`, it SHOULD insert word HIGHWAY between
-  ///   state name and a number.
+  ///   <list type="number">
+  ///     <item>
+  ///       When the name of a state is used as a portion of the Primary Street Name, such as <c>123 TN COUNTY ROAD 4</c>,
+  ///       it SHOULD use the standard two-letter abbreviation (previous steps took care of that).
+  ///       <item>
+  ///       </item>
+  ///       When the name of a state is the complete Primary Street Name, such as <c>OKLAHOMA AVE</c>, then the state name
+  ///       SHOULD be spelled out completely.
+  ///       <item>
+  ///       </item>
+  ///       When the name of a state is followed by a number, such as <c>123 TN 440</c>, it SHOULD insert word HIGHWAY
+  ///       between state name and a number.
+  ///     </item>
+  ///   </list>
   /// </remarks>
   /// <param name="components"></param>
   /// <returns></returns>
@@ -93,8 +133,8 @@ internal static class StreetComponentExtensions
       );
     }
 
-    // Replace state abbreviate followed by number with state abbreviation word HIGHWAY and then number,
-    // i.e. replace `123 TN 440` with `123 TN HIGHWAY 440`.
+    // Replace state abbreviate followed by number with state abbreviation word <c>HIGHWAY</c> and then number,
+    // i.e. replace <c>123 TN 440</c> with <c>123 TN HIGHWAY 440</c>.
     Match stateFollowedByNumberMatch =
       RegexConstants.UsStateFollowedByNumber.Match(streetNameComponent?.Text ?? string.Empty);
 
